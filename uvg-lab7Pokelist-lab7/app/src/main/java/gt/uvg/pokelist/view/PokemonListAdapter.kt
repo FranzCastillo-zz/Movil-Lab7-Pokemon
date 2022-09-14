@@ -2,7 +2,10 @@ package gt.uvg.pokelist.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import gt.uvg.pokelist.databinding.ItemPokemonViewBinding
 import gt.uvg.pokelist.model.Pokemon
 
@@ -16,11 +19,22 @@ class PokemonListAdapter(private val pokemonList: List<Pokemon>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: PokemonListHolder, position: Int) {
-        // TODO
+        // GETS THE ITEM
+        val item = pokemonList[position]
+        // SETS THE POKEMON NAME TO TE BINDING OBJECT
+        holder.binding.pokemonName.text = item.name
+        // SETS THE POKEMON PHOTO TO TE BINDING OBJECT WITH PICASSO
+        Picasso.get().load(item.imageUrlFront).into(holder.binding.pokemonPhoto)
+
+        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(item)
+        holder.binding.root.setOnClickListener{
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {
-        // TODO
-        return 0
+        return pokemonList.size
     }
+
+
 }
