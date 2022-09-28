@@ -35,6 +35,4 @@ class PokemonListAdapter(private val pokemonList: List<Pokemon>) : RecyclerView.
     override fun getItemCount(): Int {
         return pokemonList.size
     }
-
-
 }
